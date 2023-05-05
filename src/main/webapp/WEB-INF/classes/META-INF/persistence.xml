@@ -3,8 +3,8 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
              http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
              version="2.1">
-    <persistence-unit name="Reviews">
-        <class>cz.martin</class>
+    <persistence-unit name="Students">
+        <class>cz.martin.entities.StudentEntity</class>
 
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
@@ -12,7 +12,7 @@
             <property name="hibernate.connection.username" value="root"/>
             <property name="hibernate.connection.password" value="password"/>
             <property name="hibernate.connection.url"
-                      value="jdbc:mysql://localhost:3306/reviews?createDatabaseIfNotExist=true"/>
+                      value="jdbc:mysql://localhost:3306/students?createDatabaseIfNotExist=true"/>
 
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="show_sql" value="true"/>
