@@ -1,5 +1,6 @@
 package cz.martin.beans;
 
+import cz.martin.entities.GradeEntity;
 import cz.martin.entities.StudentEntity;
 import cz.martin.services.StudentsService;
 import jakarta.enterprise.context.SessionScoped;
@@ -20,9 +21,16 @@ public class EditStudentBean implements Serializable {
     private int id;
     private StudentEntity student;
 
+    private GradeEntity gradeEntity = new GradeEntity();
+
     public void edit() throws IOException {
         studentsService.editStudent(student);
         FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+    }
+
+    public void addGrade() {
+        studentsService.addGradeToStudent(student.getStudentId(), this.gradeEntity);
+        this.gradeEntity = new GradeEntity();
     }
 
     public StudentEntity getStudent() {
@@ -32,6 +40,14 @@ public class EditStudentBean implements Serializable {
             this.student = studentsService.getReviewById(id);
         }
         return student;
+    }
+
+    public GradeEntity getGradeEntity() {
+        return gradeEntity;
+    }
+
+    public void setGradeEntity(GradeEntity gradeEntity) {
+        this.gradeEntity = gradeEntity;
     }
 
     private int getId() {

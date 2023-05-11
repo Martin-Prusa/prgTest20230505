@@ -5,6 +5,7 @@
              version="2.1">
     <persistence-unit name="Students">
         <class>cz.martin.entities.StudentEntity</class>
+        <class>cz.martin.entities.GradeEntity</class>
 
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
@@ -16,6 +17,7 @@
 
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="show_sql" value="true"/>
+            <property name="hibernate.enable_lazy_load_no_trans" value="true"/>
         </properties>
     </persistence-unit>
 </persistence>

@@ -1,5 +1,6 @@
 package cz.martin.services;
 
+import cz.martin.entities.GradeEntity;
 import cz.martin.entities.StudentEntity;
 import cz.martin.repositories.StudentRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -31,10 +32,14 @@ public class StudentsService {
     }
 
     public StudentEntity getReviewById(int id) {
-        return studentRepository.getReviewById(id);
+        return studentRepository.getStudentById(id);
     }
 
     public void editStudent(StudentEntity student) {
         studentRepository.editStudent(student);
+    }
+
+    public void addGradeToStudent(int studentId, GradeEntity gradeEntity) {
+        studentRepository.addGradeToStudent(studentId, gradeEntity);
     }
 }

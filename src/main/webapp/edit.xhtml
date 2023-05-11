@@ -17,14 +17,17 @@
             <h:inputText id="date" value="#{editStudentBean.student.birth}" />
          </div>
          <div>
-            <label for="grade">Average grade</label>
-            <h:inputText id="grade" type="number" value="#{editStudentBean.student.averageGrade}" />
-         </div>
-         <div>
             <h:commandButton value="Add" action="#{editStudentBean.edit()}" >
                <f:param name="id" value="#{editStudentBean.student.studentId}" />
             </h:commandButton>
          </div>
+      </h:form>
+      <h:form>
+         <div>
+            <label for="grade">New grade</label>
+            <h:inputText id="grade" value="#{editStudentBean.gradeEntity.grade}" />
+         </div>
+         <h:commandButton value="Add grade" action="#{editStudentBean.addGrade()}" />
       </h:form>
    </ui:define>
 </ui:composition>

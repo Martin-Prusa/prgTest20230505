@@ -2,7 +2,8 @@ package cz.martin.entities;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class StudentEntity {
@@ -16,8 +17,8 @@ public class StudentEntity {
     @Column
     private String birth = "";
 
-    @Column
-    private double averageGrade = 0;
+    @OneToMany
+    private List<GradeEntity> grades;
 
     public int getStudentId() {
         return studentId;
@@ -44,10 +45,14 @@ public class StudentEntity {
     }
 
     public double getAverageGrade() {
-        return averageGrade;
+        return getGrades().stream().map(GradeEntity::getGrade).mapToInt(i -> i).average().orElse(-1);
     }
 
-    public void setAverageGrade(double averageGrade) {
-        this.averageGrade = averageGrade;
+    public List<GradeEntity> getGrades() {
+        return grades;
+    }
+
+    public void setGrades(List<GradeEntity> grades) {
+        this.grades = grades;
     }
 }

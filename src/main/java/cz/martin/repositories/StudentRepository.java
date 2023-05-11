@@ -1,5 +1,6 @@
 package cz.martin.repositories;
 
+import cz.martin.entities.GradeEntity;
 import cz.martin.entities.StudentEntity;
 import cz.martin.services.EntityManagerFactoryProvider;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -40,10 +41,10 @@ public class StudentRepository {
 
     public double getAverage() {
         EntityManager em = emfp.getEmf().createEntityManager();
-        TypedQuery<Double> query = em.createQuery("SELECT AVG(s.averageGrade) FROM StudentEntity AS s", Double.class);
         double d = -1;
         try {
-            d = query.getSingleResult();
+            //TypedQuery<Double> query = em.createQuery("SELECT ", Double.class);
+            //d = query.getSingleResult();
         } catch (Exception e) {}
 
         em.close();
@@ -66,7 +67,7 @@ public class StudentRepository {
         em.close();
     }
 
-    public StudentEntity getReviewById(int id) {
+    public StudentEntity getStudentById(int id) {
         EntityManager em = emfp.getEmf().createEntityManager();
         TypedQuery<StudentEntity> query = em.createQuery("SELECT s FROM StudentEntity AS s WHERE s.studentId = :id", StudentEntity.class);
         query.setParameter("id", id);
@@ -87,12 +88,29 @@ public class StudentRepository {
 
         s.setFirstname(student.getFirstname());
         s.setBirth(student.getBirth());
-        s.setAverageGrade(student.getAverageGrade());
 
         em.persist(s);
 
         et.commit();
 
+        em.close();
+    }
+
+    public void addGradeToStudent(int studentId, GradeEntity gradeEntity) {
+        EntityManager em = emfp.getEmf().createEntityManager();
+
+        TypedQuery<StudentEntity> query = em.createQuery("SELECT s FROM StudentEntity AS s WHERE s.studentId = :id", StudentEntity.class);
+        query.setParameter("id", studentId);
+        StudentEntity student = query.getSingleResult();
+
+        EntityTransaction et = em.getTransaction();
+        et.begin();
+
+        em.persist(gradeEntity);
+        student.getGrades().add(gradeEntity);
+        em.persist(student);
+
+        et.commit();
         em.close();
     }
 }
